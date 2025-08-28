@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silent Gaming Lock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            z-index: 10;
+            position: relative;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #ff3c00;
+            text-shadow: 0 0 10px #ff3c00;
+            font-size: 2.5rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid #ff3c00;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #ff3c00;
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to bottom, #ff3c00, #b22a00);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: linear-gradient(to bottom, #ff5c29, #c32c00);
+            box-shadow: 0 0 15px #ff3c00;
+        }
+        
+        .message {
+            text-align: center;
+            margin-top: 1.5rem;
+            min-height: 2rem;
+            font-weight: bold;
+        }
+        
+        /* Fire animation */
+        .fire {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%), 
+                        linear-gradient(to top, #ff3c00 0%, #ff9900 30%, #ff3c00 100%);
+            opacity: 0.7;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .flame {
+            position: absolute;
+            bottom: 0;
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 1s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { transform: scaleY(1) scaleX(1); opacity: 0.7; }
+            25% { transform: scaleY(1.1) scaleX(0.9); opacity: 0.8; }
+            50% { transform: scaleY(0.9) scaleX(1.1); opacity: 0.9; }
+            75% { transform: scaleY(1.2) scaleX(0.8); opacity: 0.8; }
+            100% { transform: scaleY(1) scaleX(1); opacity: 0.7; }
+        }
+        
+        /* Ice animation */
+        .ice {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 15, 30, 0.7) 0%, rgba(0, 40, 80, 0.5) 100%);
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        /* Wrong code fire effect */
+        .fire-burst {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ff3c00 0%, transparent 70%);
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Correct code animation */
+        .ice-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(100, 200, 255, 0.2), rgba(0, 50, 100, 0.5));
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .frost {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 100%);
+            border-radius: 10px;
+            z-index: 6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SILENT GAMING LOCK</h1>
+        <div class="input-group">
+            <input type="text" id="codeInput" placeholder="ENTER YOUR CODE" maxlength="5">
+        </div>
+        <button id="submitBtn">PROCEED</button>
+        <div class="message" id="message"></div>
+    </div>
+    
+    <div class="fire" id="fireBackground"></div>
+    <div class="ice" id="iceBackground"></div>
+    <div class="fire-burst" id="fireBurst"></div>
+    <div class="ice-overlay" id="iceOverlay"></div>
+
+    <script>
+        // List of valid codes (one-time use)
+        const validCodes = [
+            "8Q4JP", "M2V7K", "T1R6S", "5L0HN", "W9Z3C", "K7Y2M", "3P8QJ", "S6V4F", "Z0L9X", "2R1HT",
+            "H7N5Q", "O3K8M", "9D2WY", "G6F4Z", "V1P9J", "0X7LR", "Y3M5S", "Q2J8K", "L9T6N", "R4H0G",
+            "C8Y7V", "5M1ZK", "W6N2X", "O0Q9H", "3V7TP", "J1K6R", "Z5X8N", "D2M9Y", "T4P0L", "H7S1F",
+            "1G6KQ", "Y8N3L", "F9V0X", "L2J7P", "Q6M8S", "0R1ZH", "V5W3G", "K9N2Y", "7T4HX", "M8J1Q",
+            "X2P9R", "4N7WL", "S0K8M", "P1Y5J", "G9F2N", "W3H7K", "6V0TJ", "H4N9R", "J8Q2P", "5X3LM",
+            "M9Y0K", "1P6RH", "V2W7Q", "K5Z9S", "8L3TN", "O7Y1F", "2R9HQ", "N0P8J", "9K6MW", "F4X2T",
+            "Q8V7P", "3S1LH", "Z0Y9K", "7R2MG", "W5N8X", "6H0QJ", "T9V3P", "J1K4R", "M7Y2H", "8P0NQ",
+            "C9F6X", "2W1JK", "R8L7N", "Y4H9P", "D0M5Q", "3K2SV", "X9N7J", "V1P0R", "L6Y8K", "G2H3W",
+            "5N9TJ", "0Q7HR", "M3Z8K", "7V2LX", "P4N0H", "O6Y9Q", "1J8SK", "R5M7V", "K9X0G", "2H4WL",
+            "W1P8T", "Q6N0Y", "J9R5K", "3V7XM", "F8Q2H", "4K1NT", "L0Z9P", "6M3WR", "8Y5JQ", "S2N7G"
+        ];
+        
+        // Used codes tracker
+        const usedCodes = new Set();
+        
+        // DOM elements
+        const codeInput = document.getElementById('codeInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageEl = document.getElementById('message');
+        const fireBackground = document.getElementById('fireBackground');
+        const iceBackground = document.getElementById('iceBackground');
+        const fireBurst = document.getElementById('fireBurst');
+        const iceOverlay = document.getElementById('iceOverlay');
+        
+        // Create fire flames
+        function createFire() {
+            for (let i = 0; i < 30; i++) {
+                const flame = document.createElement('div');
+                flame.classList.add('flame');
+                
+                const width = Math.random() * 100 + 50;
+                const height = Math.random() * 80 + 70;
+                const left = Math.random() * 100;
+                const bottom = Math.random() * 10 - 20;
+                
+                flame.style.width = `${width}px`;
+                flame.style.height = `${height}px`;
+                flame.style.left = `${left}%`;
+                flame.style.bottom = `${bottom}px`;
+                
+                flame.style.background = `radial-gradient(ellipse at bottom, 
+                    rgba(255, 100, 0, 0.8) 0%, 
+                    rgba(255, 50, 0, 0.6) 20%, 
+                    rgba(255, 0, 0, 0.3) 60%, 
+                    transparent 100%)`;
+                
+                flame.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
+                
+                fireBackground.appendChild(flame);
+            }
+        }
+        
+        // Create snowflakes for ice effect
+        function createSnowflakes() {
+            for (let i = 0; i < 100; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                const size = Math.random() * 5 + 2;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 5 + 5;
+                
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${left}%`;
+                snowflake.style.top = `${Math.random() * 20 - 20}%`;
+                snowflake.style.animationDuration = `${animationDuration}s`;
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                iceBackground.appendChild(snowflake);
+            }
+        }
+        
+        // Create frost effect
+        function createFrost() {
+            for (let i = 0; i < 20; i++) {
+                const frost = document.createElement('div');
+                frost.classList.add('frost');
+                
+                const width = Math.random() * 100 + 50;
+                const height = Math.random() * 20 + 10;
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                const rotation = Math.random() * 360;
+                
+                frost.style.width = `${width}px`;
+                frost.style.height = `${height}px`;
+                frost.style.top = `${top}%`;
+                frost.style.left = `${left}%`;
+                frost.style.transform = `rotate(${rotation}deg)`;
+                
+                iceOverlay.appendChild(frost);
+            }
+        }
+        
+        // Wrong code effect - fire burst
+        function showFireBurst() {
+            fireBurst.style.opacity = '0.8';
+            fireBurst.style.transition = 'none';
+            
+            setTimeout(() => {
+                fireBurst.style.transition = 'opacity 0.5s';
+                fireBurst.style.opacity = '0';
+            }, 500);
+        }
+        
+        // Correct code effect - ice transformation
+        function showIceEffect() {
+            // Hide fire
+            fireBackground.style.opacity = '0';
+            
+            // Show ice
+            iceBackground.style.opacity = '1';
+            iceOverlay.style.opacity = '1';
+            
+            // Add frost to container
+            const container = document.querySelector('.container');
+            container.style.boxShadow = '0 0 20px rgba(100, 200, 255, 0.7)';
+            container.style.border = '1px solid rgba(100, 200, 255, 0.3)';
+            
+            // Change input and button styles
+            codeInput.style.borderColor = '#00aaff';
+            codeInput.style.boxShadow = '0 0 10px rgba(0, 170, 255, 0.5)';
+            submitBtn.style.background = 'linear-gradient(to bottom, #00aaff, #0066aa)';
+            
+            // Change text color
+            document.querySelector('h1').style.color = '#00aaff';
+            document.querySelector('h1').style.textShadow = '0 0 10px #00aaff';
+        }
+        
+        // Handle form submission
+        submitBtn.addEventListener('click', () => {
+            const enteredCode = codeInput.value.trim().toUpperCase();
+            
+            if (!enteredCode) {
+                messageEl.textContent = "Please enter a code";
+                messageEl.style.color = "#ff3c00";
+                return;
+            }
+            
+            if (usedCodes.has(enteredCode)) {
+                messageEl.textContent = "Code already used";
+                messageEl.style.color = "#ff3c00";
+                showFireBurst();
+                return;
+            }
+            
+            if (validCodes.includes(enteredCode)) {
+                // Valid code
+                usedCodes.add(enteredCode);
+                messageEl.textContent = "Access granted! Redirecting...";
+                messageEl.style.color = "#00ff00";
+                
+                showIceEffect();
+                
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = "https://silentgaminghub8-web.github.io/silentgaminghub8-web3.github.io/";
+                }, 2000);
+            } else {
+                // Invalid code
+                messageEl.textContent = "Invalid code";
+                messageEl.style.color = "#ff3c00";
+                showFireBurst();
+            }
+        });
+        
+        // Allow Enter key to submit
+        codeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+        
+        // Initialize effects
+        createFire();
+        createSnowflakes();
+        createFrost();
+    </script>
+</body>
+</html>
