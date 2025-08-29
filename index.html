@@ -3,379 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silent Gaming Lock</title>
+    <title>SG Hub Payment Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: #000;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #fff;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            overflow: hidden;
-            position: relative;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
-        
+
         .container {
+            max-width: 1000px;
             width: 100%;
-            max-width: 500px;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-            z-index: 10;
-            position: relative;
+            padding: 20px;
         }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #ff3c00;
-            text-shadow: 0 0 10px #ff3c00;
-            font-size: 2.5rem;
-        }
-        
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(30, 30, 30, 0.8);
-            border: 2px solid #ff3c00;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 1.2rem;
-            text-align: center;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 10px #ff3c00;
-        }
-        
-        button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(to bottom, #ff3c00, #b22a00);
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        button:hover {
-            background: linear-gradient(to bottom, #ff5c29, #c32c00);
-            box-shadow: 0 0 15px #ff3c00;
-        }
-        
-        .message {
-            text-align: center;
-            margin-top: 1.5rem;
-            min-height: 2rem;
-            font-weight: bold;
-        }
-        
-        /* Fire animation */
-        .fire {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%), 
-                        linear-gradient(to top, #ff3c00 0%, #ff9900 30%, #ff3c00 100%);
-            opacity: 0.7;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .flame {
-            position: absolute;
-            bottom: 0;
-            border-radius: 50% 50% 20% 20%;
-            animation: flicker 1s infinite alternate;
-        }
-        
-        @keyframes flicker {
-            0% { transform: scaleY(1) scaleX(1); opacity: 0.7; }
-            25% { transform: scaleY(1.1) scaleX(0.9); opacity: 0.8; }
-            50% { transform: scaleY(0.9) scaleX(1.1); opacity: 0.9; }
-            75% { transform: scaleY(1.2) scaleX(0.8); opacity: 0.8; }
-            100% { transform: scaleY(1) scaleX(1); opacity: 0.7; }
-        }
-        
-        /* Ice animation */
-        .ice {
-            position: absolute;
+
+        /* Welcome Popup */
+        .welcome-popup {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 15, 30, 0.7) 0%, rgba(0, 40, 80, 0.5) 100%);
-            z-index: 2;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 1s;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.8s ease-out;
         }
-        
-        .snowflake {
+
+        .welcome-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(92, 92, 224, 0.6);
+            animation: scaleIn 0.8s ease-out;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #4cc9f0;
+        }
+
+        .welcome-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 15px #4cc9f0;
+        }
+
+        .proceed-btn {
+            background: linear-gradient(145deg, #4361ee, #3a0ca3);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .proceed-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.6);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .headline {
+            text-align: center;
+            font-size: 2.8rem;
+            margin: 20px 0 40px;
+            color: #fff;
+            text-shadow: 0 0 20px #4cc9f0, 0 0 30px #4cc9f0;
+            animation: pulse 2s infinite;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: #4cc9f0;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .payment-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .payment-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-desc {
+            color: #a0a0ec;
+            font-size: 0.9rem;
+        }
+
+        /* Payment Modal */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(76, 201, 240, 0.7);
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid #4cc9f0;
+            animation: scaleIn 0.5s ease-out;
+            position: relative;
+        }
+
+        .close-modal {
             position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: fall linear infinite;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #f72585;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        
-        @keyframes fall {
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #4cc9f0;
+        }
+
+        .breakdown {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .breakdown-total {
+            font-weight: bold;
+            color: #4cc9f0;
+            font-size: 1.2rem;
+            border-bottom: none;
+            padding-top: 10px;
+        }
+
+        .proceed-pay-btn {
+            background: linear-gradient(145deg, #4361ee, #3a0ca3);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .proceed-pay-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.6);
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .upi-id {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
             to {
-                transform: translateY(100vh);
+                opacity: 1;
             }
         }
-        
-        /* Wrong code fire effect */
-        .fire-burst {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, #ff3c00 0%, transparent 70%);
-            z-index: 5;
-            opacity: 0;
-            pointer-events: none;
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
-        /* Correct code animation */
-        .ice-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(100, 200, 255, 0.2), rgba(0, 50, 100, 0.5));
-            z-index: 5;
-            opacity: 0;
-            pointer-events: none;
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 20px #4cc9f0, 0 0 30px #4cc9f0;
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 25px #4cc9f0, 0 0 40px #4cc9f0;
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 20px #4cc9f0, 0 0 30px #4cc9f0;
+            }
         }
-        
-        .frost {
-            position: absolute;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.3) 100%);
-            border-radius: 10px;
-            z-index: 6;
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2rem;
+            }
+            
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-card {
+                padding: 20px;
+            }
+            
+            .payment-icon {
+                font-size: 2.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>SILENT GAMING LOCK</h1>
-        <div class="input-group">
-            <input type="text" id="codeInput" placeholder="ENTER YOUR CODE" maxlength="5">
+    <!-- Welcome Popup -->
+    <div class="welcome-popup" id="welcomePopup">
+        <div class="welcome-content">
+            <h1 class="welcome-title">Welcome to Silent Gaming Hub Payment Zone</h1>
+            <p>Unlock premium gaming experience with our ₹500 subscription</p>
+            <button class="proceed-btn" onclick="closeWelcome()">Proceed</button>
         </div>
-        <button id="submitBtn">PROCEED</button>
-        <div class="message" id="message"></div>
     </div>
-    
-    <div class="fire" id="fireBackground"></div>
-    <div class="ice" id="iceBackground"></div>
-    <div class="fire-burst" id="fireBurst"></div>
-    <div class="ice-overlay" id="iceOverlay"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content" id="mainContent">
+            <h1 class="headline">SG Hub Payment Page</h1>
+            
+            <div class="payment-options">
+                <div class="payment-card" onclick="openModal('Google Pay')">
+                    <div class="payment-icon" style="color: #4285F4;">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3 class="payment-name">Google Pay</h3>
+                    <p class="payment-desc">Fast and secure payments</p>
+                </div>
+                
+                <div class="payment-card" onclick="openModal('PhonePe')">
+                    <div class="payment-icon" style="color: #673AB7;">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="payment-name">PhonePe</h3>
+                    <p class="payment-desc">India's popular UPI app</p>
+                </div>
+                
+                <div class="payment-card" onclick="openModal('Paytm')">
+                    <div class="payment-icon" style="color: #002970;">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="payment-name">Paytm</h3>
+                    <p class="payment-desc">Pay with Paytm wallet</p>
+                </div>
+                
+                <div class="payment-card" onclick="openModal('Amazon Pay')">
+                    <div class="payment-icon" style="color: #FF9900;">
+                        <i class="fab fa-amazon"></i>
+                    </div>
+                    <h3 class="payment-name">Amazon Pay</h3>
+                    <p class="payment-desc">Amazon's payment solution</p>
+                </div>
+                
+                <div class="payment-card" onclick="openModal('UPI Direct')">
+                    <div class="payment-icon" style="color: #00AFF0;">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3 class="payment-name">UPI Direct</h3>
+                    <p class="payment-desc">Direct UPI transfer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalTitle">Payment Method</h2>
+            
+            <div class="breakdown">
+                <div class="breakdown-row">
+                    <span>Base Price:</span>
+                    <span>₹470</span>
+                </div>
+                <div class="breakdown-row">
+                    <span>GST (18%):</span>
+                    <span>₹30</span>
+                </div>
+                <div class="breakdown-row">
+                    <span>Other Charges:</span>
+                    <span>₹0</span>
+                </div>
+                <div class="breakdown-row breakdown-total">
+                    <span>Final Price:</span>
+                    <span>₹500</span>
+                </div>
+            </div>
+            
+            <div id="qrCodeSection" style="display: none;">
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=silentgaminghub8@okicici&am=500&cu=INR&pn=SilentGamingHub" alt="QR Code">
+                </div>
+                <div class="upi-id">silentgaminghub8@okicici</div>
+            </div>
+            
+            <button class="proceed-pay-btn" id="proceedPayBtn">Proceed to Pay</button>
+        </div>
+    </div>
 
     <script>
-        // List of valid codes (one-time use)
-        const validCodes = [
-            "8Q4JP", "M2V7K", "T1R6S", "5L0HN", "W9Z3C", "K7Y2M", "3P8QJ", "S6V4F", "Z0L9X", "2R1HT",
-            "H7N5Q", "O3K8M", "9D2WY", "G6F4Z", "V1P9J", "0X7LR", "Y3M5S", "Q2J8K", "L9T6N", "R4H0G",
-            "C8Y7V", "5M1ZK", "W6N2X", "O0Q9H", "3V7TP", "J1K6R", "Z5X8N", "D2M9Y", "T4P0L", "H7S1F",
-            "1G6KQ", "Y8N3L", "F9V0X", "L2J7P", "Q6M8S", "0R1ZH", "V5W3G", "K9N2Y", "7T4HX", "M8J1Q",
-            "X2P9R", "4N7WL", "S0K8M", "P1Y5J", "G9F2N", "W3H7K", "6V0TJ", "H4N9R", "J8Q2P", "5X3LM",
-            "M9Y0K", "1P6RH", "V2W7Q", "K5Z9S", "8L3TN", "O7Y1F", "2R9HQ", "N0P8J", "9K6MW", "F4X2T",
-            "Q8V7P", "3S1LH", "Z0Y9K", "7R2MG", "W5N8X", "6H0QJ", "T9V3P", "J1K4R", "M7Y2H", "8P0NQ",
-            "C9F6X", "2W1JK", "R8L7N", "Y4H9P", "D0M5Q", "3K2SV", "X9N7J", "V1P0R", "L6Y8K", "G2H3W",
-            "5N9TJ", "0Q7HR", "M3Z8K", "7V2LX", "P4N0H", "O6Y9Q", "1J8SK", "R5M7V", "K9X0G", "2H4WL",
-            "W1P8T", "Q6N0Y", "J9R5K", "3V7XM", "F8Q2H", "4K1NT", "L0Z9P", "6M3WR", "8Y5JQ", "S2N7G"
-        ];
+        // Current selected payment method
+        let selectedMethod = '';
         
-        // Used codes tracker
-        const usedCodes = new Set();
-        
-        // DOM elements
-        const codeInput = document.getElementById('codeInput');
-        const submitBtn = document.getElementById('submitBtn');
-        const messageEl = document.getElementById('message');
-        const fireBackground = document.getElementById('fireBackground');
-        const iceBackground = document.getElementById('iceBackground');
-        const fireBurst = document.getElementById('fireBurst');
-        const iceOverlay = document.getElementById('iceOverlay');
-        
-        // Create fire flames
-        function createFire() {
-            for (let i = 0; i < 30; i++) {
-                const flame = document.createElement('div');
-                flame.classList.add('flame');
-                
-                const width = Math.random() * 100 + 50;
-                const height = Math.random() * 80 + 70;
-                const left = Math.random() * 100;
-                const bottom = Math.random() * 10 - 20;
-                
-                flame.style.width = `${width}px`;
-                flame.style.height = `${height}px`;
-                flame.style.left = `${left}%`;
-                flame.style.bottom = `${bottom}px`;
-                
-                flame.style.background = `radial-gradient(ellipse at bottom, 
-                    rgba(255, 100, 0, 0.8) 0%, 
-                    rgba(255, 50, 0, 0.6) 20%, 
-                    rgba(255, 0, 0, 0.3) 60%, 
-                    transparent 100%)`;
-                
-                flame.style.animationDuration = `${Math.random() * 0.5 + 0.5}s`;
-                
-                fireBackground.appendChild(flame);
-            }
+        // Welcome popup functions
+        function closeWelcome() {
+            document.getElementById('welcomePopup').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
         }
         
-        // Create snowflakes for ice effect
-        function createSnowflakes() {
-            for (let i = 0; i < 100; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                
-                const size = Math.random() * 5 + 2;
-                const left = Math.random() * 100;
-                const animationDuration = Math.random() * 5 + 5;
-                
-                snowflake.style.width = `${size}px`;
-                snowflake.style.height = `${size}px`;
-                snowflake.style.left = `${left}%`;
-                snowflake.style.top = `${Math.random() * 20 - 20}%`;
-                snowflake.style.animationDuration = `${animationDuration}s`;
-                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
-                
-                iceBackground.appendChild(snowflake);
-            }
-        }
-        
-        // Create frost effect
-        function createFrost() {
-            for (let i = 0; i < 20; i++) {
-                const frost = document.createElement('div');
-                frost.classList.add('frost');
-                
-                const width = Math.random() * 100 + 50;
-                const height = Math.random() * 20 + 10;
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-                const rotation = Math.random() * 360;
-                
-                frost.style.width = `${width}px`;
-                frost.style.height = `${height}px`;
-                frost.style.top = `${top}%`;
-                frost.style.left = `${left}%`;
-                frost.style.transform = `rotate(${rotation}deg)`;
-                
-                iceOverlay.appendChild(frost);
-            }
-        }
-        
-        // Wrong code effect - fire burst
-        function showFireBurst() {
-            fireBurst.style.opacity = '0.8';
-            fireBurst.style.transition = 'none';
+        // Modal functions
+        function openModal(method) {
+            selectedMethod = method;
+            document.getElementById('modalTitle').textContent = `Pay with ${method}`;
+            document.getElementById('paymentModal').style.display = 'flex';
             
-            setTimeout(() => {
-                fireBurst.style.transition = 'opacity 0.5s';
-                fireBurst.style.opacity = '0';
-            }, 500);
-        }
-        
-        // Correct code effect - ice transformation
-        function showIceEffect() {
-            // Hide fire
-            fireBackground.style.opacity = '0';
-            
-            // Show ice
-            iceBackground.style.opacity = '1';
-            iceOverlay.style.opacity = '1';
-            
-            // Add frost to container
-            const container = document.querySelector('.container');
-            container.style.boxShadow = '0 0 20px rgba(100, 200, 255, 0.7)';
-            container.style.border = '1px solid rgba(100, 200, 255, 0.3)';
-            
-            // Change input and button styles
-            codeInput.style.borderColor = '#00aaff';
-            codeInput.style.boxShadow = '0 0 10px rgba(0, 170, 255, 0.5)';
-            submitBtn.style.background = 'linear-gradient(to bottom, #00aaff, #0066aa)';
-            
-            // Change text color
-            document.querySelector('h1').style.color = '#00aaff';
-            document.querySelector('h1').style.textShadow = '0 0 10px #00aaff';
-        }
-        
-        // Handle form submission
-        submitBtn.addEventListener('click', () => {
-            const enteredCode = codeInput.value.trim().toUpperCase();
-            
-            if (!enteredCode) {
-                messageEl.textContent = "Please enter a code";
-                messageEl.style.color = "#ff3c00";
-                return;
-            }
-            
-            if (usedCodes.has(enteredCode)) {
-                messageEl.textContent = "Code already used";
-                messageEl.style.color = "#ff3c00";
-                showFireBurst();
-                return;
-            }
-            
-            if (validCodes.includes(enteredCode)) {
-                // Valid code
-                usedCodes.add(enteredCode);
-                messageEl.textContent = "Access granted! Redirecting...";
-                messageEl.style.color = "#00ff00";
-                
-                showIceEffect();
-                
-                // Redirect after delay
-                setTimeout(() => {
-                    window.location.href = "https://silentgaminghub8-web.github.io/silentgaminghub8-web3.github.io/";
-                }, 2000);
+            // Show QR code only for UPI Direct
+            const qrSection = document.getElementById('qrCodeSection');
+            if (method === 'UPI Direct') {
+                qrSection.style.display = 'block';
             } else {
-                // Invalid code
-                messageEl.textContent = "Invalid code";
-                messageEl.style.color = "#ff3c00";
-                showFireBurst();
+                qrSection.style.display = 'none';
             }
-        });
+            
+            // Update button action
+            const payBtn = document.getElementById('proceedPayBtn');
+            payBtn.onclick = function() {
+                proceedToPay(method);
+            };
+        }
         
-        // Allow Enter key to submit
-        codeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                submitBtn.click();
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+        
+        // Payment redirection
+        function proceedToPay(method) {
+            if (method === 'UPI Direct') {
+                // For UPI Direct, we're already showing the QR code
+                closeModal();
+            } else {
+                // For other methods, use the UPI deep link
+                window.location.href = 'upi://pay?pa=silentgaminghub8@okicici&am=500&cu=INR&pn=SilentGamingHub';
             }
-        });
+        }
         
-        // Initialize effects
-        createFire();
-        createSnowflakes();
-        createFrost();
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
