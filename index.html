@@ -501,7 +501,7 @@
                 </div>
             </div>
             
-            <!-- Layer 5: Benefit 4 with Referral Calculator -->
+            <!-- Layer 5: Benefit 4 (without calculator) -->
             <div class="layer inactive" id="layer5">
                 <h2 class="layer-title">Refer & Earn</h2>
                 <div class="layer-content">
@@ -515,13 +515,6 @@
                             • <span class="highlight">5-10 members</span>: Earn ₹300 for each referral<br>
                             • <span class="highlight">10+ members</span>: Earn ₹400 for each referral
                         </p>
-                    </div>
-                    
-                    <div class="calculator">
-                        <h3 class="calculator-title">Referral Earnings Calculator</h3>
-                        <input type="number" id="referralCount" class="calculator-input" placeholder="Enter number of referrals" min="1" max="999999">
-                        <div class="calculator-result" id="earningsResult">₹0</div>
-                        <p class="calculator-note">* Earnings calculated at ₹400 per referral after 10th member</p>
                     </div>
                     
                     <div class="earn-calculation">
@@ -665,43 +658,6 @@
                 } else if (touchEndX > touchStartX && touchEndX - touchStartX > minSwipeDistance) {
                     prevBtn.click();
                 }
-            }
-            
-            // Referral calculator functionality (inside layer)
-            const referralInput = document.getElementById('referralCount');
-            const earningsResult = document.getElementById('earningsResult');
-            
-            if (referralInput) {
-                referralInput.addEventListener('input', function() {
-                    // Limit to 6 digits
-                    if (this.value.length > 6) {
-                        this.value = this.value.slice(0, 6);
-                    }
-                    
-                    const count = parseInt(this.value) || 0;
-                    const earnings = count * 400;
-                    earningsResult.textContent = `₹${earnings.toLocaleString()}`;
-                });
-                
-                // Prevent non-numeric input
-                referralInput.addEventListener('keydown', function(e) {
-                    // Allow: backspace, delete, tab, escape, enter
-                    if ([46, 8, 9, 27, 13].includes(e.keyCode) || 
-                        // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-                        (e.keyCode === 65 && e.ctrlKey === true) || 
-                        (e.keyCode === 67 && e.ctrlKey === true) || 
-                        (e.keyCode === 86 && e.ctrlKey === true) || 
-                        (e.keyCode === 88 && e.ctrlKey === true) ||
-                        // Allow: home, end, left, right
-                        (e.keyCode >= 35 && e.keyCode <= 39)) {
-                        return;
-                    }
-                    
-                    // Ensure it's a number and stop the keypress if not
-                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                        e.preventDefault();
-                    }
-                });
             }
             
             // External referral calculator functionality (below navigation)
