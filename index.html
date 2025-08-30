@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SG Hub Payment Page</title>
+    <title>Silent Gaming Hub - Premium Benefits</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -12,458 +12,735 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            padding: 20px;
-        }
-
-        /* Welcome Popup */
-        .welcome-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .welcome-content {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(92, 92, 224, 0.6);
-            animation: scaleIn 0.8s ease-out;
-            max-width: 500px;
-            width: 90%;
-            border: 2px solid #4cc9f0;
-        }
-
-        .welcome-title {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 0 15px #4cc9f0;
-        }
-
-        .proceed-btn {
-            background: linear-gradient(145deg, #4361ee, #3a0ca3);
+            background: linear-gradient(135deg, #0a0a2a, #1a1a40, #0a0a2a);
             color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-        }
-
-        .proceed-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.6);
-        }
-
-        /* Main Content */
-        .main-content {
-            display: none;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .headline {
-            text-align: center;
-            font-size: 2.8rem;
-            margin: 20px 0 40px;
-            color: #fff;
-            text-shadow: 0 0 20px #4cc9f0, 0 0 30px #4cc9f0;
-            animation: pulse 2s infinite;
-        }
-
-        .payment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .payment-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(76, 201, 240, 0.3);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .payment-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: #4cc9f0;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .payment-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-        }
-
-        .payment-name {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .payment-desc {
-            color: #a0a0ec;
-            font-size: 0.9rem;
-        }
-
-        /* Payment Modal */
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .modal-content {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(76, 201, 240, 0.7);
-            max-width: 500px;
-            width: 90%;
-            border: 2px solid #4cc9f0;
-            animation: scaleIn 0.5s ease-out;
+            min-height: 100vh;
+            overflow-x: hidden;
             position: relative;
         }
-
-        .close-modal {
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            color: #f72585;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
         }
-
-        .close-modal:hover {
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #4cc9f0;
-        }
-
-        .breakdown {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: left;
-        }
-
-        .breakdown-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 12px 0;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .breakdown-total {
-            font-weight: bold;
-            color: #4cc9f0;
-            font-size: 1.2rem;
-            border-bottom: none;
-            padding-top: 10px;
-        }
-
-        .proceed-pay-btn {
-            background: linear-gradient(145deg, #4361ee, #3a0ca3);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-        }
-
-        .proceed-pay-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.6);
-        }
-
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            margin: 20px auto;
-            background: #fff;
-            border-radius: 10px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .qr-code img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .upi-id {
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 1.1rem;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes pulse {
+        
+        @keyframes float {
             0% {
-                transform: scale(1);
-                text-shadow: 0 0 20px #4cc9f0, 0 0 30px #4cc9f0;
+                transform: translateY(0) translateX(0);
+                opacity: 0;
             }
-            50% {
-                transform: scale(1.05);
-                text-shadow: 0 0 25px #4cc9f0, 0 0 40px #4cc9f0;
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
             }
             100% {
-                transform: scale(1);
-                text-shadow: 0 0 20px #4cc9f0, 0 0 30px #4cc9f0;
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
             }
         }
-
-        /* Responsive Design */
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 200, 255, 0.7);
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 200, 255, 0.6);
+            }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0dd;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .presentation-container {
+            perspective: 1000px;
+            margin: 40px auto;
+            width: 90%;
+            max-width: 900px;
+            height: 600px;
+            position: relative;
+            flex-grow: 1;
+        }
+        
+        .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            background: rgba(10, 15, 35, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.8s, opacity 0.8s;
+            opacity: 0;
+            z-index: 1;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+        }
+        
+        .layer.active {
+            opacity: 1;
+            z-index: 10;
+            transform: rotateY(0deg) scale(1);
+        }
+        
+        .layer.inactive {
+            transform: rotateY(180deg) scale(0.9);
+            opacity: 0;
+            z-index: 1;
+        }
+        
+        .layer-title {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #00f2fe;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+        }
+        
+        .layer-content {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .benefit-card {
+            background: rgba(20, 25, 50, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #00f2fe;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 200, 255, 0.2);
+        }
+        
+        .benefit-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #4facfe;
+            font-size: 1.4rem;
+        }
+        
+        .benefit-icon {
+            margin-right: 10px;
+            font-size: 1.6rem;
+        }
+        
+        .benefit-desc {
+            color: #d0d0f0;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: #00f2fe;
+            font-weight: bold;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 200, 255, 0.4);
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 200, 255, 0.6);
+        }
+        
+        .nav-btn:disabled {
+            background: linear-gradient(to right, #2a4c6d, #1a7080);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 200, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .progress-dot.active {
+            background: #00f2fe;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
+        }
+        
+        .pricing {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 20px 0;
+            color: #00f2fe;
+            text-shadow: 0 0 15px rgba(0, 200, 255, 0.5);
+        }
+        
+        .earn-calculation {
+            background: rgba(20, 25, 50, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+        }
+        
+        .earn-title {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .earn-amount {
+            font-size: 2rem;
+            color: #00f2fe;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+        }
+        
+        /* Referral Calculator Styles */
+        .calculator {
+            background: rgba(20, 25, 50, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            text-align: center;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .calculator-title {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .calculator-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #00f2fe;
+            border-radius: 5px;
+            background: rgba(10, 15, 35, 0.8);
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+        }
+        
+        .calculator-input:focus {
+            box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+        }
+        
+        .calculator-result {
+            font-size: 1.8rem;
+            color: #00f2fe;
+            font-weight: bold;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+            min-height: 2.5rem;
+        }
+        
+        .calculator-note {
+            color: #a0a0dd;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        /* Glossy Join Now Button */
+        .join-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 18px 40px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: white;
+            background: linear-gradient(135deg, #00f2fe, #4facfe, #00f2fe);
+            background-size: 200% auto;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(0, 200, 255, 0.6);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .join-button:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0));
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .join-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 200, 255, 0.8);
+            background-position: right center;
+        }
+        
+        .join-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 15px rgba(0, 200, 255, 0.5);
+        }
+        
+        .bottom-section {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+        }
+        
         @media (max-width: 768px) {
-            .headline {
-                font-size: 2rem;
+            h1 {
+                font-size: 2.5rem;
             }
             
-            .welcome-title {
+            .layer-title {
                 font-size: 1.8rem;
             }
             
-            .payment-options {
-                grid-template-columns: 1fr;
+            .presentation-container {
+                height: 700px;
             }
             
-            .payment-card {
-                padding: 20px;
+            .benefit-title {
+                font-size: 1.2rem;
             }
             
-            .payment-icon {
-                font-size: 2.8rem;
+            .join-button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Welcome Popup -->
-    <div class="welcome-popup" id="welcomePopup">
-        <div class="welcome-content">
-            <h1 class="welcome-title">Welcome to Silent Gaming Hub Payment Zone</h1>
-            <p>Unlock premium gaming experience with our ₹500 subscription</p>
-            <button class="proceed-btn" onclick="closeWelcome()">Proceed</button>
-        </div>
-    </div>
-
-    <!-- Main Content -->
+    <div class="particles" id="particles"></div>
+    
     <div class="container">
-        <div class="main-content" id="mainContent">
-            <h1 class="headline">SG Hub Payment Page</h1>
+        <header>
+            <h1>What Silent Gaming Hub Provides To You</h1>
+            <p class="subtitle">Discover the exclusive benefits of our Premium Membership and how you can elevate your gaming experience while earning exciting rewards</p>
+        </header>
+        
+        <div class="presentation-container">
+            <!-- Layer 1: Introduction -->
+            <div class="layer active" id="layer1">
+                <h2 class="layer-title">Welcome to Silent Gaming Hub</h2>
+                <div class="layer-content">
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-crown"></i>
+                            Premium Membership
+                        </h3>
+                        <p class="benefit-desc">Upgrade your gaming journey with our premium membership at just <span class="highlight">₹500</span> and unlock exclusive benefits designed to enhance your skills, content, and earnings.</p>
+                    </div>
+                    
+                    <div class="pricing">Only ₹500</div>
+                    
+                    <p>Tap through to explore all the premium benefits</p>
+                </div>
+            </div>
             
-            <div class="payment-options">
-                <div class="payment-card" onclick="openModal('Google Pay')">
-                    <div class="payment-icon" style="color: #4285F4;">
-                        <i class="fab fa-google"></i>
+            <!-- Layer 2: Benefit 1 -->
+            <div class="layer inactive" id="layer2">
+                <h2 class="layer-title">Weekly Tournaments</h2>
+                <div class="layer-content">
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-trophy"></i>
+                            Free Tournament Entry
+                        </h3>
+                        <p class="benefit-desc">Get exclusive access to weekly tournaments with prize pools ranging from <span class="highlight">₹100 to ₹1000</span>. Show off your skills and win big every week!</p>
                     </div>
-                    <h3 class="payment-name">Google Pay</h3>
-                    <p class="payment-desc">Fast and secure payments</p>
+                    
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-star"></i>
+                            Pro Player of the Month
+                        </h3>
+                        <p class="benefit-desc">All tournament winners compete at month's end for the title of <span class="highlight">Pro Player of the Month</span>, earning <span class="highlight">₹500 on every referral + ₹2000 cash prize</span>.</p>
+                    </div>
                 </div>
-                
-                <div class="payment-card" onclick="openModal('PhonePe')">
-                    <div class="payment-icon" style="color: #673AB7;">
-                        <i class="fas fa-mobile-alt"></i>
+            </div>
+            
+            <!-- Layer 3: Benefit 2 -->
+            <div class="layer inactive" id="layer3">
+                <h2 class="layer-title">Premium Content</h2>
+                <div class="layer-content">
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-graduation-cap"></i>
+                            Daily Tips & Tricks
+                        </h3>
+                        <p class="benefit-desc">Receive a daily dose of high-quality content focused on improving your gameplay. <span class="highlight">No time-wasting montages or reels</span> - just valuable insights to level up your skills.</p>
                     </div>
-                    <h3 class="payment-name">PhonePe</h3>
-                    <p class="payment-desc">India's popular UPI app</p>
+                    
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-video"></i>
+                            Exclusive Strategy Guides
+                        </h3>
+                        <p class="benefit-desc">Access in-depth tutorials, advanced techniques, and pro strategies unavailable to regular members.</p>
+                    </div>
                 </div>
-                
-                <div class="payment-card" onclick="openModal('Paytm')">
-                    <div class="payment-icon" style="color: #002970;">
-                        <i class="fas fa-wallet"></i>
+            </div>
+            
+            <!-- Layer 4: Benefit 3 -->
+            <div class="layer inactive" id="layer4">
+                <h2 class="layer-title">Earn by Creating Content</h2>
+                <div class="layer-content">
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-upload"></i>
+                            Upload & Promote
+                        </h3>
+                        <p class="benefit-desc">Create and share content about our community on Instagram and earn <span class="highlight">₹20 per reel</span>. Turn your creativity into earnings while promoting our gaming hub.</p>
                     </div>
-                    <h3 class="payment-name">Paytm</h3>
-                    <p class="payment-desc">Pay with Paytm wallet</p>
+                    
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-bullhorn"></i>
+                            Grow Your Audience
+                        </h3>
+                        <p class="benefit-desc">Build your following while representing our community and earning rewards for your efforts.</p>
+                    </div>
                 </div>
-                
-                <div class="payment-card" onclick="openModal('Amazon Pay')">
-                    <div class="payment-icon" style="color: #FF9900;">
-                        <i class="fab fa-amazon"></i>
+            </div>
+            
+            <!-- Layer 5: Benefit 4 with Referral Calculator -->
+            <div class="layer inactive" id="layer5">
+                <h2 class="layer-title">Refer & Earn</h2>
+                <div class="layer-content">
+                    <div class="benefit-card">
+                        <h3 class="benefit-title">
+                            <i class="benefit-icon fas fa-users"></i>
+                            Multi-tier Referral System
+                        </h3>
+                        <p class="benefit-desc">
+                            • <span class="highlight">1-5 members</span>: Earn ₹100 for each referral<br>
+                            • <span class="highlight">5-10 members</span>: Earn ₹300 for each referral<br>
+                            • <span class="highlight">10+ members</span>: Earn ₹400 for each referral
+                        </p>
                     </div>
-                    <h3 class="payment-name">Amazon Pay</h3>
-                    <p class="payment-desc">Amazon's payment solution</p>
-                </div>
-                
-                <div class="payment-card" onclick="openModal('UPI Direct')">
-                    <div class="payment-icon" style="color: #00AFF0;">
-                        <i class="fas fa-qrcode"></i>
+                    
+                    <div class="calculator">
+                        <h3 class="calculator-title">Referral Earnings Calculator</h3>
+                        <input type="number" id="referralCount" class="calculator-input" placeholder="Enter number of referrals" min="1" max="999999">
+                        <div class="calculator-result" id="earningsResult">₹0</div>
+                        <p class="calculator-note">* Earnings calculated at ₹400 per referral after 10th member</p>
                     </div>
-                    <h3 class="payment-name">UPI Direct</h3>
-                    <p class="payment-desc">Direct UPI transfer</p>
+                    
+                    <div class="earn-calculation">
+                        <h3 class="earn-title">Potential Monthly Earnings</h3>
+                        <p>Referring just 2 members daily after reaching 10 referrals:</p>
+                        <p class="earn-amount">₹24,000/month</p>
+                        <p>Plus tournament winnings not included!</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="modal-title" id="modalTitle">Payment Method</h2>
-            
-            <div class="breakdown">
-                <div class="breakdown-row">
-                    <span>Base Price:</span>
-                    <span>₹470</span>
-                </div>
-                <div class="breakdown-row">
-                    <span>GST (18%):</span>
-                    <span>₹30</span>
-                </div>
-                <div class="breakdown-row">
-                    <span>Other Charges:</span>
-                    <span>₹0</span>
-                </div>
-                <div class="breakdown-row breakdown-total">
-                    <span>Final Price:</span>
-                    <span>₹500</span>
-                </div>
+        
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="nav-btn" id="next-btn">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        
+        <div class="progress-indicator">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+        </div>
+        
+        <!-- Calculator and Join Now button placed below navigation -->
+        <div class="bottom-section">
+            <div class="calculator">
+                <h3 class="calculator-title">Calculate Your Referral Income</h3>
+                <input type="number" id="externalReferralCount" class="calculator-input" placeholder="Enter number of referrals" min="1" max="999999">
+                <div class="calculator-result" id="externalEarningsResult">₹0</div>
+                <p class="calculator-note">Per referral after 10th</p>
             </div>
             
-            <div id="qrCodeSection" style="display: none;">
-                <div class="qr-code">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=silentgaminghub8@okicici&am=500&cu=INR&pn=SilentGamingHub" alt="QR Code">
-                </div>
-                <div class="upi-id">silentgaminghub8@okicici</div>
-            </div>
-            
-            <button class="proceed-pay-btn" id="proceedPayBtn">Proceed to Pay</button>
+            <a href="https://silentgaminghub8-web.github.io/Silentgaminghub8-web1.github.io/" class="join-button">Join Now</a>
         </div>
     </div>
 
     <script>
-        // Current selected payment method
-        let selectedMethod = '';
-        
-        // Welcome popup functions
-        function closeWelcome() {
-            document.getElementById('welcomePopup').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-        }
-        
-        // Modal functions
-        function openModal(method) {
-            selectedMethod = method;
-            document.getElementById('modalTitle').textContent = `Pay with ${method}`;
-            document.getElementById('paymentModal').style.display = 'flex';
-            
-            // Show QR code only for UPI Direct
-            const qrSection = document.getElementById('qrCodeSection');
-            if (method === 'UPI Direct') {
-                qrSection.style.display = 'block';
-            } else {
-                qrSection.style.display = 'none';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create background particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
             }
             
-            // Update button action
-            const payBtn = document.getElementById('proceedPayBtn');
-            payBtn.onclick = function() {
-                proceedToPay(method);
-            };
-        }
-        
-        function closeModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-        }
-        
-        // Payment redirection
-        function proceedToPay(method) {
-            if (method === 'UPI Direct') {
-                // For UPI Direct, we're already showing the QR code
-                closeModal();
-            } else {
-                // For other methods, use the UPI deep link
-                window.location.href = 'upi://pay?pa=silentgaminghub8@okicici&am=500&cu=INR&pn=SilentGamingHub';
+            // Layer navigation logic
+            const layers = document.querySelectorAll('.layer');
+            const dots = document.querySelectorAll('.progress-dot');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentLayer = 0;
+            
+            function updateNavigation() {
+                // Update buttons
+                prevBtn.disabled = currentLayer === 0;
+                nextBtn.disabled = currentLayer === layers.length - 1;
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    if (index === currentLayer) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
             }
-        }
-        
-        // Close modal if clicked outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('paymentModal');
-            if (event.target === modal) {
-                closeModal();
+            
+            nextBtn.addEventListener('click', function() {
+                if (currentLayer < layers.length - 1) {
+                    layers[currentLayer].classList.remove('active');
+                    layers[currentLayer].classList.add('inactive');
+                    
+                    currentLayer++;
+                    
+                    layers[currentLayer].classList.remove('inactive');
+                    layers[currentLayer].classList.add('active');
+                    
+                    updateNavigation();
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentLayer > 0) {
+                    layers[currentLayer].classList.remove('active');
+                    layers[currentLayer].classList.add('inactive');
+                    
+                    currentLayer--;
+                    
+                    layers[currentLayer].classList.remove('inactive');
+                    layers[currentLayer].classList.add('active');
+                    
+                    updateNavigation();
+                }
+            });
+            
+            // Support keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    prevBtn.click();
+                }
+            });
+            
+            // Support swipe on touch devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            document.querySelector('.presentation-container').addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            document.querySelector('.presentation-container').addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const minSwipeDistance = 50;
+                
+                if (touchEndX < touchStartX && touchStartX - touchEndX > minSwipeDistance) {
+                    nextBtn.click();
+                } else if (touchEndX > touchStartX && touchEndX - touchStartX > minSwipeDistance) {
+                    prevBtn.click();
+                }
             }
-        }
+            
+            // Referral calculator functionality (inside layer)
+            const referralInput = document.getElementById('referralCount');
+            const earningsResult = document.getElementById('earningsResult');
+            
+            if (referralInput) {
+                referralInput.addEventListener('input', function() {
+                    // Limit to 6 digits
+                    if (this.value.length > 6) {
+                        this.value = this.value.slice(0, 6);
+                    }
+                    
+                    const count = parseInt(this.value) || 0;
+                    const earnings = count * 400;
+                    earningsResult.textContent = `₹${earnings.toLocaleString()}`;
+                });
+                
+                // Prevent non-numeric input
+                referralInput.addEventListener('keydown', function(e) {
+                    // Allow: backspace, delete, tab, escape, enter
+                    if ([46, 8, 9, 27, 13].includes(e.keyCode) || 
+                        // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                        (e.keyCode === 65 && e.ctrlKey === true) || 
+                        (e.keyCode === 67 && e.ctrlKey === true) || 
+                        (e.keyCode === 86 && e.ctrlKey === true) || 
+                        (e.keyCode === 88 && e.ctrlKey === true) ||
+                        // Allow: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                        return;
+                    }
+                    
+                    // Ensure it's a number and stop the keypress if not
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+            
+            // External referral calculator functionality (below navigation)
+            const externalReferralInput = document.getElementById('externalReferralCount');
+            const externalEarningsResult = document.getElementById('externalEarningsResult');
+            
+            if (externalReferralInput) {
+                externalReferralInput.addEventListener('input', function() {
+                    // Limit to 6 digits
+                    if (this.value.length > 6) {
+                        this.value = this.value.slice(0, 6);
+                    }
+                    
+                    const count = parseInt(this.value) || 0;
+                    const earnings = count * 400;
+                    externalEarningsResult.textContent = `₹${earnings.toLocaleString()}`;
+                });
+                
+                // Prevent non-numeric input
+                externalReferralInput.addEventListener('keydown', function(e) {
+                    // Allow: backspace, delete, tab, escape, enter
+                    if ([46, 8, 9, 27, 13].includes(e.keyCode) || 
+                        // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                        (e.keyCode === 65 && e.ctrlKey === true) || 
+                        (e.keyCode === 67 && e.ctrlKey === true) || 
+                        (e.keyCode === 86 && e.ctrlKey === true) || 
+                        (e.keyCode === 88 && e.ctrlKey === true) ||
+                        // Allow: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                        return;
+                    }
+                    
+                    // Ensure it's a number and stop the keypress if not
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
